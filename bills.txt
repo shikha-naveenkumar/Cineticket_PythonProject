@@ -1,0 +1,34 @@
+		  RECEIPT
+
+Ticket Number:		 8995
+Name:		  Medha
+Phone Number:		    1234
+
+ Date :		      13-01-2024
+
+ Movie :		      Jigarthanda
+ 2 person 
+ ===================================
+Amount :		560
+You can show your ticket number and select
+your seats at CINETICKET theatre :) 
+ ===================================
+
+ *******************************************************
+		  RECEIPT
+
+Ticket Number:		 7128
+Name:		  Medha
+Phone Number:		    1234
+
+ Date :		      13-01-2024
+
+ Movie :		      Animal
+ 2 person 
+ ===================================
+Amount :		560
+You can show your ticket number and select
+your seats at CINETICKET theatre :) 
+ ===================================
+
+ *******************************************************

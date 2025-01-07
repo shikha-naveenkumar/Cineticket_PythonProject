@@ -1,0 +1,68 @@
+		  RECEIPT
+
+Ticket Number:		 7249
+Name:		  Medha
+Phone Number:		    99887
+
+ Date :		      13-01-2024
+
+ Movie :		      Japan
+ 3 person 
+ ===================================
+Amount :		600
+You can show your ticket number and select
+your seats at CINETICKET theatre :) 
+ ===================================
+
+ *******************************************************
+		  RECEIPT
+
+Ticket Number:		 4449
+Name:		  Medha
+Phone Number:		    7890
+
+ Date :		      11-01-2024
+
+ Movie :		      Marvel
+ 2 person 
+ ===================================
+Amount :		560
+You can show your ticket number and select
+your seats at CINETICKET theatre :) 
+ ===================================
+
+ *******************************************************
+		  RECEIPT
+
+Ticket Number:		 2207
+Name:		  Medha
+Phone Number:		    123
+
+ Date :		      17-01-2024
+
+ Movie :		      Marvel
+ 2 person 
+ ===================================
+Amount :		400
+You can show your ticket number and select
+your seats at CINETICKET theatre :) 
+ ===================================
+
+ *******************************************************
+		  RECEIPT
+
+Ticket Number:		 2356
+Name:		  Medha
+Phone Number:		    430
+
+ Date :		      18-01-2024
+
+ Movie :		      Taylor swift eras tour
+ 4 person 
+ ===================================
+Amount :		920
+You can show your ticket number and select
+your seats at CINETICKET theatre :) 
+ ===================================
+
+ *******************************************************

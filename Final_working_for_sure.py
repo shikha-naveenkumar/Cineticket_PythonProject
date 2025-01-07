@@ -1,0 +1,865 @@
+import mttkinter
+from tkinter import *
+import mttkinter
+from tkinter import *
+from tkinter import messagebox
+import mysql.connector
+import os
+import time
+import tkinter as tk
+from tkVideoPlayer import TkinterVideo
+from PIL import Image
+from PIL import ImageTk
+from tkinter import ttk
+from tigermovie import tgrmv
+from swift import swift
+from marvel import marvel1
+from japanmovie import japan
+from jigarthanda import jigar
+from napolean import nap
+from wish import wish
+from wonka import wonka
+from dunki import dunki
+from animal import animal
+from sam import sam
+from fail import fail
+from QR_CODE_GEN import QR_CODE
+import threading
+import matplotlib as plt
+import matplotlib.pyplot as plt
+
+#to play video
+root = tk.Tk()
+root.title('VIDEO')
+root.geometry('1300x990')
+root.configure(bg='blue')
+root.resizable(True, True)
+videoplayer = TkinterVideo(master=root, scaled=True)
+
+videoplayer.load("logo_v.mp4")
+videoplayer.pack(expand=True, fill="both")
+
+videoplayer.play() # play the video
+root.after(5000,root.destroy)
+
+root.mainloop()
+#connecting to the database
+db = mysql.connector.connect(host="localhost",user="root",passwd="1234",database="techienaman")
+mycur = db.cursor()
+## Added by Medha
+mycur.execute("DROP TABLE Active_usr ")
+mycur.execute("CREATE TABLE IF NOT EXISTS Active_usr (act_usr Varchar(20))")
+
+
+root=tk.Tk()
+root.title('Login')
+root.geometry('925x500+300+20')
+root.configure(bg="#fff")
+root.resizable(False,False)
+
+
+def error_destroy():
+    err.destroy()
+
+def succ_destroy():
+    succ.destroy()
+    root1.destroy()
+
+def error():
+    global err
+    err = Toplevel(root)
+    err.title("Error")
+    err.geometry("200x100")
+    Label(err,text="All fields are required..",fg="red",font="bold").pack()
+    Label(err,text="").pack()
+    Button(err,text="Ok",bg="grey",width=8,height=1,command=error_destroy).pack()
+
+def success():
+    global succ
+    succ = Toplevel(root1)
+    succ.title("Success")
+    succ.geometry("200x100")
+    Label(succ, text="Sign up successful...", fg="green", font="bold").pack()
+    Label(succ, text="").pack()
+    Button(succ, text="Ok", bg="grey", width=8, height=1, command=succ_destroy).pack()
+
+def success6():
+    global succ
+    succ = Toplevel(root1)
+    succ.title("Success")
+    succ.geometry("300x100")
+    Label(succ, text="Password Updated successfully...", fg="green", font="bold").pack()
+    Label(succ, text="").pack()
+    Button(succ, text="Ok", bg="grey", width=8, height=1, command=succ_destroy).pack()
+
+def register_user():
+    username_info = username.get()
+    #messagebox.showinfo('User Check',username_info)
+    password_info = password.get()
+    if username_info == "":
+        error()
+    elif password_info == "":
+        error()
+    else:
+        sql = "insert into login values(%s,%s)"
+        t = (username_info, password_info)
+        mycur.execute(sql, t)
+        db.commit()
+        Label(root1, text="").pack()
+        time.sleep(0.50)
+        success()
+###################################################
+view = PhotoImage(file = 'view.png')
+hide = PhotoImage(file = 'hide.png')
+def toggle_passwordd():
+    if password.cget('show') =='*':
+        password.config(show='')
+        toggle_btn.config(image=view)
+    else:
+        password.config(show='*')
+        toggle_btnn.config(image=hide)
+def registration():
+    global img2
+    global root1
+    global toggle_btnn
+    root1 = Toplevel(root)
+    root1.title('Sign up')
+    root1.geometry('925x500+300+20')
+    root1.configure(bg="#fff")
+    root1.resizable(False,False)
+    img2=PhotoImage(file='signup_img.png')
+    Label(root1,image=img2,border=0,bg='white').place(x=2,y=5)
+    frame=Frame(root1,width=350,height=390,bg='#fff')
+    frame.place(x=480,y=50)
+    heading=Label(root1,text='SIGN UP',fg="#57a1f8",bg='white',font=('Microsoft Yahei UI Light',28,'bold'))
+    heading.place(x=550,y=60)
+    global username
+    global password
+    username = StringVar()
+    password = StringVar()
+    def on_enter(e):
+        username.delete(0,'end')
+    def on_leave(e):
+        if username.get()=='':
+            username.insert(0,'Username')
+
+    toggle_btnn=Button(frame,image=view, height=22,width=30,bg='white',highlightthickness = 0, bd = 0,command=toggle_passwordd)
+    toggle_btnn.place(x=320,y=172)
+    
+    username=Entry(root1,width=25,fg='black',border=0,bg='white',font=('Microsoft Yahei UI Light',11))
+    username.place(x=560,y=160)
+    #username.insert(0,'Username')  ## Commented by Medha to overcome the issue of direct sign up btn click
+    username.bind("<FocusIn>",on_enter)
+    username.bind("<FocusOut>",on_leave)
+    labeU=Label(root1,text='Username:',fg='black',bg='white',font=('Microsoft Yahei UI Light',12))
+    labeU.place(x=470,y=160)
+
+    Frame(root1,width=295,height=2,bg='black').place(x=558,y=187)
+################
+    def on_enter(e):
+        password.delete(0,'end')
+    def on_leave(e):
+        if password.get()=='':
+            password.insert(0,'Password')
+
+    password=Entry(root1,width=25,fg='black',border=0,bg='white',font=('Microsoft Yahei UI Light',11))
+    password.place(x=560,y=220)
+    #password.insert(0,'Password')     ## Commented by Medha to overcome the issue of direct sugn up btn click
+    password.bind("<FocusIn>",on_enter)
+    password.bind("<FocusOut>",on_leave)
+    labeP=Label(root1,text='Password:',fg='black',bg='white',font=('Microsoft Yahei UI Light',12))
+    labeP.place(x=470,y=220)
+
+    Frame(root1,width=295,height=2,bg='black').place(x=558,y=247)
+
+    Button(root1,width=39,pady=7,text='Sign up',bg='#57a1f8',fg='white',border=0,command=register_user).place(x=550,y=280)
+    #label=Label(root1,text='I have an account!',fg='black',bg='white',font=('Microsoft Yahei UI Light',9))
+    #label.place(x=560,y=327)
+
+    #b=Button(root1,width=6,text='Sign in',border=1,bg='white',cursor='hand2',fg='#57a1f8',command=main_screen)
+    #b.place(x=680,y=327)
+
+
+    root1.mainloop()
+
+    #######################
+#############################
+
+def logg_destroy():
+    #logg.destroy()
+    root.destroy()
+
+def fail_destroy():
+    fail.destroy()
+
+def logged():
+    root.wm_state('iconic')
+    global videoplayer
+    global logg
+    logg = tk.Tk()
+    logg.title("Welcome")
+    logg.geometry("200x100")
+    Label(logg, text="Welcome {} ".format(username_varify.get()), fg="green", font="bold").pack()
+    Label(logg, text="").pack()
+    Button(logg, text="Go to CINETICKET!", bg="grey", width=18, height=1, command=home).pack()
+    
+def failed():
+    global fail
+    fail = Toplevel(root)
+    fail.title("Invalid")
+    fail.geometry("200x100")
+    Label(fail, text="Invalid credentials...", fg="red", font="bold").pack()
+    Label(fail, text="").pack()
+    Button(fail, text="Ok", bg="grey", width=8, height=1, command=fail_destroy).pack()
+
+def login_varify():
+    user_varify = username_varify.get()
+    pas_varify = password_varify.get()
+    sql = "select * from login where username = %s and password = %s"
+    mycur.execute(sql,[(user_varify),(pas_varify)])
+    results = mycur.fetchall()
+    if results:
+        for i in results:
+            logged()
+  # place for insert user logged in details: Added by Medha
+            try:
+                #conn = sqlite3.connect("ticket_booking_database.db")
+                #cursor = conn.cursor()
+                mycur.execute("INSERT INTO Active_usr VALUES ('{}')".format (str(user_varify)))
+                db.commit()
+            #show_message('Successful', 'Your booking is successful, your ticket id is {}'.format(ticket_id.get()))
+            #top1.destroy()
+            except mysql.connector.Error as e:
+                show_message('Error', e)
+            #finally:
+                #db.close()          
+            break
+    else:
+        failed()
+
+view = PhotoImage(file = 'view.png')
+hide = PhotoImage(file = 'hide.png')
+def toggle_password():
+   
+    if password_varify.cget('show') =='*':
+        password_varify.config(show='')
+        toggle_btn.config(image=view)
+    else:
+        password_varify.config(show='*')
+        toggle_btn.config(image=hide)#text='view Password')
+###############################################
+def main_screen():
+    global toggle_btn
+    global img
+    img=PhotoImage(file='Logo.png')
+    Label(root,image=img,border=0,bg='white').place(x=15,y=6)
+    frame=Frame(root,width=350,height=350,bg='#fff')
+    frame.place(x=480,y=70)
+    heading=Label(frame,text='LOG IN',fg="#57a1f8",bg='white',font=('Microsoft Yahei UI Light',28,'bold'))
+    heading.place(x=110,y=3)
+    global username_varify
+    global password_varify
+    username = StringVar()
+    password = StringVar()
+    
+    def on_enter(e):
+        username_varify.delete(0,'end')
+
+    def on_leave(e):
+        name=username_varify.get()
+        if name=='':
+            username_varify.insert(0,'Username')
+
+            
+    username_varify=Entry(frame,width=25,fg='black',border=0,bg='white',font=('Microsoft YaHei UI Light',11))
+    username_varify.place(x=30,y=80)
+    username_varify.insert(0,'Username')
+    username_varify.bind('<FocusIn>',on_enter)
+    username_varify.bind('<FocusOut>',on_leave)
+
+    Frame(frame,width=295,height=2,bg='black').place(x=25,y=107)
+
+    def on_enter(e):
+        password_varify.delete(0,'end')
+
+    def on_leave(e):
+        name=password_varify.get()
+        if name=='':
+            password_varify.insert(0,'Password')
+
+    
+    toggle_btn=Button(frame,image=view, height=22,width=30,bg='white',highlightthickness = 0, bd = 0,command=toggle_password)
+    toggle_btn.place(x=280,y=150)
+            
+    password_varify= Entry(frame,width=25,fg='black',border=0,bg='white',font=('Microsoft YaHei UI Light',11))
+    password_varify.place(x=30,y=150)
+    password_varify.insert(0,'password')
+    password_varify.bind('<FocusIn>',on_enter)
+    password_varify.bind('<FocusOut>',on_leave)
+
+
+    Frame(frame,width=295,height=2,bg='black').place(x=25,y=177)
+
+##################################
+    Button(frame,width=39,height=2,text='Log-In',bg='#57a1f8',fg='white',border=0,command=login_varify).place(x=35,y=204)
+    label=Label(frame,text="Dont have an account?",fg='black',bg='white',font=('Microsoft YaHei UI Light',11))
+    label.place(x=75,y=270)
+    sign_up=Button(frame,width=6,text='Sign up',border=1,bg='white',cursor='hand2',fg='#57a1f8',command=registration)
+    sign_up.place(x=240,y=270)
+
+    root.mainloop()
+    
+def failed2_destroy():
+    fail2.destroy()
+
+def failed3_destroy():
+    fail3.destroy()
+
+def failed2():
+    global fail2
+    fail2 = Toplevel(root)
+    fail2.title("ERROR")
+    fail2.geometry("200x100")
+    Label(fail2, text="User not found...", fg="red", font="bold").pack()
+    Label(fail2, text="").pack()
+    Button(fail2, text="Ok", bg="grey", width=8, height=1, command=failed2_destroy).pack()
+##################################
+#### Added by Medha for Password check error
+def failed3():
+    global fail3
+    fail3 = Toplevel(root)
+    fail3.title("ERROR")
+    fail3.geometry("300x100")
+    Label(fail3, text="Password does not Match...", fg="red", font="bold").pack()
+    Label(fail3, text="").pack()
+    Button(fail3, text="Ok", bg="grey", width=8, height=1, command=failed3_destroy).pack()
+
+def toggle_password2():
+    if password2.cget('show') =='*':
+        password2.config(show='')
+        toggle_btn2.config(image=view)
+    else:
+        password2.config(show='*')
+        toggle_btn2.config(image=hide)
+    
+def update():
+    global toggle_btn2
+    global img9
+    global root1
+    global PWD_BTN
+    global Upd_pass
+    
+    root1 = Toplevel(root)
+    root1.title('Update')
+    root1.geometry('925x500+300+20')
+    root1.configure(bg="#fff")
+    root1.resizable(False,False)
+    img9=PhotoImage(file='Update_pass.png')
+    Label(root1,image=img9,border=0,bg='white').place(x=30,y=10)
+    frame=Frame(root1,width=350,height=390,bg='#fff')
+    frame.place(x=480,y=50)
+    heading=Label(root1,text='UPDATE ACCOUNT',fg="#57a1f8",bg='white',font=('Microsoft Yahei UI Light',28,'bold'))
+    heading.place(x=540,y=70)
+    global user
+    global username2
+    global password2
+    user= StringVar()
+    username2 = StringVar()
+    password2 = StringVar()
+    def on_enter(e):
+        user.delete(0,'end')
+    def on_leave(e):
+        if user.get()=='':
+            user.insert(0,'Current Password')  #changed from Existing Username to Current pwd Medha
+
+    user=Entry(root1,width=25,fg='black',border=0,bg='white',font=('Microsoft Yahei UI Light',11))
+    user.place(x=550,y=153)
+    user.insert(0,'Current Password') #changed from Existing Username to Current pwd Medha
+    user.bind("<FocusIn>",on_enter)
+    user.bind("<FocusOut>",on_leave)
+
+    Frame(root1,width=295,height=2,bg='black').place(x=550,y=187)
+
+    PWD_BTN=Button(root1,width=39,height=2,text='Password Check',bg='#57a1f8',fg='white',border=0,command=check)
+    PWD_BTN.place(x=560,y=200)
+    PWD_BTN['state']=NORMAL
+    #Upd_pass['state']=NORMAL
+    #btn=Button(root1,width=6,text='check',border=0,bg='white',cursor='hand2',fg='#57a1f8',command=check)
+    #btn.place(x=720,y=50)
+    ####-------------------------------------
+    def on_enter(e):
+        password2.delete(0,'end')
+    def on_leave(e):
+        if password2.get()=='':
+            password2.insert(0,'New Password')
+
+    toggle_btn2=Button(root1,image=view, height=22,width=30,bg='white',highlightthickness = 0, bd = 0,command=toggle_password2)
+    toggle_btn2.place(x=800,y=260)
+    
+    password2=Entry(root1,width=25,fg='black',border=0,bg='white',font=('Microsoft Yahei UI Light',11))
+    password2.place(x=550,y=250)
+    password2.insert(0,'New Password')
+    password2.bind("<FocusIn>",on_enter)
+    password2.bind("<FocusOut>",on_leave)
+
+    Frame(root1,width=295,height=2,bg='black').place(x=550,y=287)
+
+    Upd_pass=Button(root1,width=39,height=2,state='disabled',text='Update Password',bg='#57a1f8',fg='white',border=0,command=register_user2)
+    Upd_pass.place(x=560,y=300)
+    
+    label=Label(root1,text='Want to delete account?',fg='black',bg='white',font=('Microsoft Yahei UI Light',12))
+    label.place(x=565,y=350)
+
+    
+    y=Button(root1,width=7,text='yes',border=0,bg='white',cursor='hand2',fg='#57a1f8',command=delete)
+    y.place(x=740,y=350)
+    ####-------------------------------------
+def toggle_password3():
+    if password3.cget('show') =='*':
+        password3.config(show='')
+        toggle_btn3.config(image=view)
+    else:
+        password3.config(show='*')
+        toggle_btn3.config(image=hide)
+        
+def delete():
+    global img8
+    global root2
+    global toggle_btn3
+    root2 = Toplevel(root)
+    root2.title('Update')
+    root2.geometry('925x500+300+20')
+    root2.configure(bg="#fff")
+    root2.resizable(False,False)
+    img8=PhotoImage(file='Logo.png')
+    Label(root2,image=img8,border=0,bg='white').place(x=15,y=6)
+    frame=Frame(root2,width=350,height=390,bg='#fff')
+    frame.place(x=480,y=50)
+    heading=Label(root2,text='DELETE ACCOUNT',fg="#57a1f8",bg='white',font=('Microsoft Yahei UI Light',28,'bold'))
+    heading.place(x=550,y=100)
+    global username2
+    global password3
+    username2 = StringVar()
+    password3 = StringVar()
+    def on_enter(e):
+        username2.delete(0,'end')
+    def on_leave(e):
+        if username2.get()=='':
+            username2.insert(0,'Existing Username')
+
+    username2=Entry(root2,width=25,fg='black',border=0,bg='white',font=('Microsoft Yahei UI Light',11))
+    username2.place(x=550,y=205)
+    username2.insert(0,'Existing Username')
+    username2.bind("<FocusIn>",on_enter)
+    username2.bind("<FocusOut>",on_leave)
+
+
+    Frame(root2,width=295,height=2,bg='black').place(x=550,y=235)
+
+    ####-------------------------------------
+    def on_enter(e):
+        password3.delete(0,'end')
+    def on_leave(e):
+        if password3.get()=='':
+            password3.insert(0,'Existing Password ')
+            
+    toggle_btn3=Button(root2,image=view, height=22,width=30,bg='white',highlightthickness = 0, bd = 0,command=toggle_password3)
+    toggle_btn3.place(x=800,y=260)
+    
+    password3=Entry(root2,width=25,fg='black',border=0,bg='white',font=('Microsoft Yahei UI Light',11))
+    password3.place(x=550,y=255)
+    password3.insert(0,'Existing Password')
+    password3.bind("<FocusIn>",on_enter)
+    password3.bind("<FocusOut>",on_leave)
+
+    Frame(root2,width=295,height=2,bg='black').place(x=550,y=285)
+
+    Button(root2,width=39,height=2,text='Delete',bg='#57a1f8',fg='white',border=0,command=verify2).place(x=540,y=300)
+    
+def deletion():
+    username_info = username2.get()
+    password_info = password3.get()
+    if username_info == "":
+        error()
+    elif password_info == "":
+        error()
+    else:
+        sql = "delete from login where password=(%s) and username=(%s)"
+        t = ([password_info, username_info])
+        mycur.execute(sql, t)
+        db.commit()
+        Label(root1, text="").pack()
+        time.sleep(0.50)
+        success2()
+
+
+def success2():        
+    global succ
+    succ = Toplevel(root2)
+    succ.title("Success")
+    succ.geometry("300x100")
+    Label(succ, text="Account successfully deleted...", fg="green", font="bold").pack()
+    Label(succ, text="").pack()
+    Button(succ, text="Ok", bg="grey", width=8, height=1, command=root2.destroy).pack()
+
+    
+
+def verify2():
+    user_varify = username2.get()
+    pas_varify = password3.get()
+    sql = "select * from login where username = %s and password = %s"
+    mycur.execute(sql,[(user_varify),(pas_varify)])
+    results = mycur.fetchall()
+    if results:
+        for i in results:
+            deletion()
+            root1.destroy()
+            break
+        return
+    else:
+        failed2()
+
+
+
+
+def check():
+    #username_info = user.get()
+    password_info = user.get()
+    if password_info == "":
+        error()
+    else:
+        if l2():
+            messagebox.showinfo('Password Check','Password Matches')
+            PWD_BTN['state']= DISABLED
+            Upd_pass['state']=NORMAL
+            return
+
+
+
+def register_user2():
+    username_info = user.get()
+    #messagebox.showinfo('SQL Check',username_info)
+    password_info = password2.get()
+    if username_info == "":
+        error()
+    elif password_info == "":
+        error()
+    else:
+        sql = "update login set password=(%s) where username in (select act_usr from active_usr)"
+        t = ([password_info])
+        mycur.execute(sql, t)
+        db.commit()
+        Label(root1, text="").pack()
+        time.sleep(0.50)
+        success6()
+
+
+def l2():
+    user_varify = user.get()
+    sql = "select * from login where password = (%s)" # Modified By Medha to check pwd instead of username
+    mycur.execute(sql,[(user_varify)])
+    results = mycur.fetchall()
+    if results:
+        for i in results:
+            break
+        return True
+                        
+    else:
+        failed3()
+    
+###############################################################33
+def home():
+    global marvel
+    global japan
+    global jigar
+    global taylor
+    global test
+    global img
+    global img2
+    global img3
+    global x
+    global test
+    global test3
+    class TwoColoredFrame(tk.Frame):
+        def __init__(self, master, bg1, bg2, fraction=0.5, **kw):
+            kw["bg"] = bg2  # color of the lower part of the Frame
+            tk.Frame.__init__(self, master, **kw)
+            # upper color stripe 
+            tk.Frame(self, bg=bg1).place(relx=0, rely=0, relwidth=1, relheight=fraction)            
+    # Create the main window
+    parent = tk.Toplevel()
+    parent.title("CINETICKET")
+    parent.geometry('1290x1000')
+    parent.resizable(True, True)
+    #########&&&&&&&&&&&&&&&&&############################
+    #To create a scrollbar
+    logg.destroy()
+    #root.destroy()
+    def on_scrollbar_move(*args):
+        canvas.yview(*args)
+
+    frame1 = Frame(parent)
+    frame1.pack(fill=BOTH, expand=True)
+
+    # Create a canvas widget
+    canvas = Canvas(frame1)
+    canvas.pack(side=LEFT, fill=BOTH, expand=True)
+
+    # Create a scrollbar widget
+    scrollbar = Scrollbar(frame1, command=on_scrollbar_move)
+    scrollbar.pack(side=RIGHT, fill=Y)
+
+    # Configure the canvas to use the scrollbar
+    canvas.configure(yscrollcommand=scrollbar.set)
+
+    # Create a frame inside the canvas to hold the content
+    content_frame = Frame(canvas)
+    canvas.create_window((0, 0), window=content_frame, anchor=NW)
+
+    #########
+    frame = TwoColoredFrame(content_frame, width=1290, height=1000, bg2='antiquewhite1', bg1="gray28", fraction=0.10)
+    frame.pack_propagate(0)
+    frame.pack(fill="both", expand=True)
+    label1 = tk.Label(frame, bg='antiquewhite1')
+    label1.pack(side="bottom")
+    label1 = tk.Label(frame, bg='gray28', fg="white")
+    label1.pack(side="top")
+    #########################################################
+    def call():
+        # Create an instance of tkinter window 
+        win = Tk()
+        # Define the geometry of the window
+        win.geometry("700x500")        
+    # Define buttons for menu bar
+    movies2= Button(content_frame, text="MOVIES",font= ('Poplar Std', 10), fg= "antiquewhite1",bg="gray32",command=movies)
+    movies2.place(x=200, y=40)
+    # movie poster buttons on home screen
+    imge1 = PhotoImage(file = 'tiger2poster.png')
+    tiger=Button(content_frame,image=imge1,command=tgrmv)
+    tiger.place(x=30, y=500)
+
+    imge2 = PhotoImage(file = 'marvelsposter.png')
+    marvel=Button(content_frame,image=imge2,command=marvel1)
+    marvel.place(x=280, y=500)
+
+    imge3 = PhotoImage(file = 'japanposter.png')
+    japan2=Button(content_frame,image=imge3,command=japan)
+    japan2.place(x=525, y=500)
+
+    imge4 = PhotoImage(file = 'jigarthandaposter.png')
+    jigar2=Button(content_frame,image=imge4,command=jigar)
+    jigar2.place(x=770, y=500)
+
+    imge5 = PhotoImage(file = 'tayloreraposter.png')
+    taylor=Button(content_frame,image=imge5,command=swift)
+    taylor.place(x=1015, y=500)
+    # To add design to mainscreen
+    txt = 'Hastle free ticket booking....Anytime......Anywhere!!'
+    lbl = tk.Label(content_frame, font='Bell 36 bold', width=43,bg = "brown",fg = "orange")
+    lbl.place(x=0, y=400)
+    def animate_label(text, n=0):
+        if n < len(text)-1:
+            # not complete yet, schedule next run one second later
+            lbl.after(1000, animate_label, text, n+1)
+        # update the text of the label
+        lbl['text'] = text[:n+1]
+    # start the "after loop" one second later
+    content_frame.after(1000,animate_label, txt)
+    ###########################################################################
+    #upper buttons
+    turn_on =Button(content_frame,text="View Bookings", font= ('Poplar Std', 15), fg= "black",bg="orange",command=bookings)
+    turn_on.place(x=530, y=36)
+    turn_on =Button(content_frame,text="Change password", font= ('Poplar Std', 15), fg= "black",bg="lightgreen",command=update)
+    turn_on.place(x=700, y=36)
+    turn_on =Button(content_frame,text="LOG OUT", font= ('Poplar Std', 15), fg= "antiquewhite1",bg="brown",command=logg_destroy)
+    turn_on.place(x=900, y=36)
+    l=Label(content_frame, text="Welcome {}!! ".format(username_varify.get()),bg="gray28", fg="white", font= ('Poplar Std', 20))
+    l.place(x=1020, y=36)
+    turn_on.pack
+    ###########################################################################
+    image4 = Image.open("home_page_logo.png")
+    test3 = ImageTk.PhotoImage(image4)
+    label1s = tk.Label(parent,image=test3)
+    label1s.image = test3
+    canvas.create_window(20, 50, window=label1s, anchor='w')
+    ############################################################################
+    # loading the images 
+    img=ImageTk.PhotoImage(Image.open("image1.png")) 
+    img2=ImageTk.PhotoImage(Image.open("image2.png")) 
+    img3=ImageTk.PhotoImage(Image.open("image3.png")) 
+    l=Label(content_frame)
+    l.place(x=100,y=110)
+    #l.pack(padx=90,pady=280)
+    # using recursion to slide to next image 
+    x = 1
+    # function to change to next image 
+    def move(): 
+            global x 
+            if x == 4: 
+                    x = 1
+            if x == 1: 
+                    l.config(image=img) 
+            elif x == 2: 
+                    l.config(image=img2) 
+            elif x == 3: 
+                    l.config(image=img3) 
+            x = x+1
+            content_frame.after(2000, move)
+    # calling the function 
+    move()
+    # Configure the scrollable region of the canvas
+    content_frame.update_idletasks()  # Update the frame to get the correct size
+    canvas.configure(scrollregion=canvas.bbox("all"))
+    parent.mainloop()
+    #########$$$$$$$$$$$$$$$$$$#########################3
+def movies():
+    global marvel2
+    global dunki
+    global animal
+    global taylor
+    global tiger
+    global sam
+    global fail
+    global test
+    global test2    
+    class TwoColoredFrame(tk.Frame):
+        def __init__(self, master, bg1, bg2, fraction=0.5, **kw):
+            kw["bg"] = bg2  # color of the lower part of the Frame
+            tk.Frame.__init__(self, master, **kw)
+            # upper color stripe 
+            tk.Frame(self, bg=bg1).place(relx=0, rely=0, relwidth=1, relheight=fraction)            
+    # Create the main window
+    parent = tk.Toplevel()
+    parent.title("MOVIES")
+    parent.geometry('1290x1000')
+    parent.resizable(True, True)
+    def on_scrollbar_move(*args):
+        canvas.yview(*args)
+    frame1 = Frame(parent)
+    frame1.pack(fill=BOTH, expand=True)
+    # Create a canvas widget
+    canvas = Canvas(frame1)
+    canvas.pack(side=LEFT, fill=BOTH, expand=True)
+    # Create a scrollbar widget
+    scrollbar = Scrollbar(frame1, command=on_scrollbar_move)
+    scrollbar.pack(side=RIGHT, fill=Y)
+    # Configure the canvas to use the scrollbar
+    canvas.configure(yscrollcommand=scrollbar.set)
+    # Create a frame inside the canvas to hold the content
+    content_frame = Frame(canvas)
+    canvas.create_window((0, 0), window=content_frame, anchor=NW)
+    #########
+    frame = TwoColoredFrame(content_frame, width=1290, height=1000, bg2='antiquewhite1', bg1="gray28", fraction=0.10)
+    frame.pack_propagate(0)
+    frame.pack(fill="both", expand=True)
+    label1 = tk.Label(frame, bg='antiquewhite1')
+    label1.pack(side="bottom")
+    label1 = tk.Label(frame, bg='gray28', fg="white")
+    label1.pack(side="top")
+    #########################################################
+    def call():
+        # Create an instance of tkinter window 
+        win = Tk()
+        # Define the geometry of the window
+        win.geometry("700x500")
+    ###########################################################################
+    #upper buttons
+    turn_on = Button(content_frame, text="<-BACK", font= ('Poplar Std', 15), fg= "antiquewhite1",bg="brown",command=parent.destroy)
+    turn_on.place(x=900, y=36)
+    l=Label(content_frame, text="Welcome {}!! ".format(username_varify.get()),bg="gray28", fg="white", font= ('Poplar Std', 20))
+    l.place(x=1020, y=36)
+    turn_on.pack    
+    ###########################################################################
+    # Create a photoimage object of the image in the path
+    image4 = Image.open("home_page_logo.png")
+    test3 = ImageTk.PhotoImage(image4)
+    label1s = tk.Label(parent,image=test3)
+    label1s.image = test3
+    canvas.create_window(20, 50, window=label1s, anchor='w')
+    ###########################################################################
+    # Configure the scrollable region of the canvas
+    content_frame.update_idletasks()  # Update the frame to get the correct size
+    canvas.configure(scrollregion=canvas.bbox("all"))
+    ################################################################################
+    #ENG MOVIES
+    win_label= Label(content_frame, text= "ENGLISH MOVIES", font= ('Verdana bold', 30), fg= "black",bg="bisque3")
+    win_label.place(x=20, y=100)
+    imge2 = PhotoImage(file = 'marvelsposter.png')
+    marvel2=Button(content_frame,image=imge2,command=marvel1)#command=call
+    marvel2.place(x=20, y=160)
+    imge5 = PhotoImage(file = 'tayloreraposter.png')
+    taylor=Button(content_frame,image=imge5,command=swift)#command=call
+    taylor.place(x=270, y=160)
+    imge1 = PhotoImage(file = 'napoleanposter.png')
+    taylor=Button(content_frame,image=imge1,command=nap)#command=call
+    taylor.place(x=530, y=160)
+    imge3 = PhotoImage(file = 'wishposter.png')
+    taylor=Button(content_frame,image=imge3,command=wish)#command=call
+    taylor.place(x=790, y=160)
+    imge4 = PhotoImage(file = 'wonkaposter.png')
+    taylor=Button(content_frame,image=imge4,command=wonka)#command=call
+    taylor.place(x=1050, y=160)
+    win_label= Label(content_frame, text= "HINDI MOVIES", font= ('Verdana bold', 30), fg= "black",bg="bisque3")
+    win_label.place(x=20, y=550)
+    imge6 = PhotoImage(file = 'tiger2poster.png')
+    tiger=Button(content_frame,image=imge6,command=tgrmv)#command=call
+    tiger.place(x=20, y=610)
+    imge7 = PhotoImage(file = 'dunkiposter.png')
+    dunki1=Button(content_frame,image=imge7,command=dunki)#command=call
+    dunki1.place(x=270, y=610)
+    imge8 = PhotoImage(file = 'animalposter.png')
+    animal1=Button(content_frame,image=imge8,command=animal)#command=call
+    animal1.place(x=510, y=610)
+    imge9 = PhotoImage(file = 'sambahadurposter.png')
+    sam1=Button(content_frame,image=imge9,command=sam)#command=call
+    sam1.place(x=770, y=610)
+    imge10 = PhotoImage(file = '12failposter.png')
+    fail1=Button(content_frame,image=imge10,command=fail)#command=call
+    fail1.place(x=1030, y=610)
+    # Configure the scrollable region of the canvas
+    content_frame.update_idletasks()  # Update the frame to get the correct size
+    canvas.configure(scrollregion=canvas.bbox("all"))
+    parent.mainloop()
+    
+def bookings():
+    #conn = sqlite3.connect('ticket_booking_database.db')
+        top2 = Tk()
+        #top2.geometry('737x300') -- std
+        top2.geometry('920x300')
+        top2.title('View Ticket Booking History')
+        top2.configure(bg="antiquewhite1")
+    
+        Label(top2, text='Customer Name', font=('Arial', 12), borderwidth=1, relief="solid", width=20).grid(row=0, column=0, pady=10)
+        Label(top2, text='Ticket ID', font=('Arial', 12), borderwidth=1, relief="solid", width=20).grid(row=0, column=1, pady=10)
+        Label(top2, text='Date of Booking', font=('Arial', 12), borderwidth=1, relief="solid", width=20).grid(row=0, column=2, pady=10)
+        Label(top2, text='Movie Name', font=('Arial', 12), borderwidth=1, relief="solid", width=20).grid(row=0, column=3, pady=10)
+        Label(top2, text='Amount', font=('Arial', 12), borderwidth=1, relief="solid", width=20).grid(row=0, column=4, pady=10)
+        
+        #conn = sqlite3.connect('ticket_booking_database.db')
+        #cursor = conn.cursor()
+        db = mysql.connector.connect(host="localhost",user="root",passwd="1234",database="techienaman")
+        mycur = db.cursor()
+        #################
+        mycur.execute('SELECT act_usr FROM Active_usr;')
+        user_n=mycur.fetchall()
+        uusr = (user_n,)
+        #messagebox.showinfo('Active User Value',uusr)
+        ##################################3
+        #--mycur.execute(sql_select_Query,(uusr,))
+        mycur.execute("SELECT name,ticket_id,ticket_date,Movie_name,Amount FROM ticket1 where act_usr in (select act_usr FROM Active_usr) order by 3;")
+        #messagebox.showinfo('Username found',active_usr2)
+        #cursor.execute('SELECT * FROM ticket1 ')
+        tickets = mycur.fetchall()
+        #messagebox.showinfo('Active User Value',tickets)
+        for i in range(len(tickets)):
+            Label(top2, text=tickets[i][0], borderwidth=1, relief="solid", width=20).grid(row=i+1, column=0)
+            Label(top2, text=tickets[i][1], borderwidth=1, relief="solid", width=20).grid(row=i+1, padx=10, column=1)
+            Label(top2, text=tickets[i][2], borderwidth=1, relief="solid", width=20).grid(row=i+1, padx=10, column=2)
+            Label(top2, text=tickets[i][3], borderwidth=1, relief="solid", width=20).grid(row=i+1, padx=10, column=3)
+            Label(top2, text=tickets[i][4], borderwidth=1, relief="solid", width=20).grid(row=i+1, padx=10, column=4)
+        top2.mainloop()
+        db.close()
+main_screen()
+root.mainloop()
+
+

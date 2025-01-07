@@ -1,0 +1,34 @@
+		  RECEIPT
+
+Ticket Number:		 7049
+Name:		  cat
+Phone Number:		    245
+
+ Date :		      12-01-2024
+
+ Movie :		      Marvel
+ 2 person 
+ ===================================
+Amount :		400
+You can show your ticket number and select
+your seats at CINETICKET theatre :) 
+ ===================================
+
+ *******************************************************
+		  RECEIPT
+
+Ticket Number:		 5066
+Name:		  User
+Phone Number:		    12345
+
+ Date :		      12-01-2024
+
+ Movie :		      Tiger 3
+ 3 person 
+ ===================================
+Amount :		600
+You can show your ticket number and select
+your seats at CINETICKET theatre :) 
+ ===================================
+
+ *******************************************************
